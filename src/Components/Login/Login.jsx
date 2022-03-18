@@ -11,6 +11,17 @@ export default function Login() {
       <div className="loginHeading">
         <h2>Login to Your Account</h2>
       </div>
+      <div className="loginComponents">
+        <div className="inputComponent">
+          <input placeholder="Email" type="text" />
+        </div>
+        <div className="inputComponent">
+          <input placeholder="Password" type="password" />
+        </div>
+        <div className="buttonComponent">
+          <button> Sign in</button>
+        </div>
+      </div>
     </div>
   );
 }
