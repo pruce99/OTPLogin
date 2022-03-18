@@ -1,0 +1,70 @@
+.SignupComponent {
+    display: flex;
+    .Signup {
+      width: 75%;
+      text-align: center;
+      .mainLogo {
+        text-align: left;
+        .mainLogoImage {
+          width: 170px;
+          margin: 20px;
+        }
+      }
+      .signupHeading {
+        h2 {
+          font-size: 40px;
+        }
+        h3 {
+          font-size: 25px;
+        }
+      }
+      .signupComponents {
+        .inputComponent {
+          input {
+            width: 30%;
+            border: 4px solid blueviolet;
+            border-radius: 70px;
+            height: 25px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 20px;
+          }
+        }
+        .buttonComponent {
+          button {
+            width: 15%;
+            height: 35px;
+            border-radius: 75px;
+            font-size: 17px;
+            color: white;
+            background: blueviolet;
+            border: 4px solid dodgerblue;
+            margin-top: 11px;
+          }
+        }
+      }
+    }
+    .SwitchToSignup {
+        .heading{
+            font-size: 40px;
+            color: #fff;
+        }
+        .paragraph{
+            color: #fff;
+            font-size: 20px;
+        }
+        .buttonComponent {
+          button {
+            width: 65%;
+            height: 35px;
+            border-radius: 75px;
+            font-size: 17px;
+            color: white;
+            background: blueviolet;
+            border: 4px solid dodgerblue;
+            margin-top: 11px;
+          }
+        }
+    }
+  }
+  
