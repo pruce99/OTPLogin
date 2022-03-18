@@ -21,6 +21,17 @@ export default function Login() {
         <div className="buttonComponent">
           <button> Sign in</button>
         </div>
+        <div className="orLine">
+          <h2 className="orLineHeading">
+            <span>OR</span>
+          </h2>
+        </div>
+        <div style={{ marginTop: "20px" }} className="inputComponent">
+          <input placeholder="Phone Number" type="text" />
+        </div>
+        <div className="buttonComponent">
+          <button> Sign in Using OTP </button>
+        </div>
       </div>
     </div>
   );
