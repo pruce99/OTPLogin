@@ -13,6 +13,9 @@
     .loginHeading {
       h2 {
         font-size: 40px;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 35px;
       }
       h3 {
         font-size: 25px;
@@ -24,7 +27,8 @@
           width: 30%;
           border: 4px solid blueviolet;
           border-radius: 70px;
-          height: 25px;
+          height: 50px;
+          margin-top: 10px;
           margin-bottom: 20px;
           padding: 10px;
           font-size: 20px;
@@ -58,25 +62,32 @@
     }
   }
   .SwitchToSignup {
-      .heading{
-          font-size: 40px;
-          color: #fff;
+    .heading {
+      color: #fff;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      h3 {
+        font-size: 55px;
+        font-weight: 700;
       }
-      .paragraph{
-          color: #fff;
-          font-size: 20px;
+    }
+    .paragraph {
+      color: #fff;
+      p {
+        font-size: 22px;
       }
-      .buttonComponent {
-        button {
-          width: 65%;
-          height: 35px;
-          border-radius: 75px;
-          font-size: 17px;
-          color: white;
-          background: blueviolet;
-          border: 4px solid dodgerblue;
-          margin-top: 11px;
-        }
+    }
+    .buttonComponent {
+      button {
+        width: 65%;
+        height: 35px;
+        border-radius: 75px;
+        font-size: 17px;
+        color: white;
+        background: blueviolet;
+        border: 4px solid dodgerblue;
+        margin-top: 11px;
       }
+    }
   }
 }

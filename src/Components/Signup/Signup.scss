@@ -1,70 +1,77 @@
 .SignupComponent {
-    display: flex;
-    .Signup {
-      width: 75%;
-      text-align: center;
-      .mainLogo {
-        text-align: left;
-        .mainLogoImage {
-          width: 170px;
-          margin: 20px;
-        }
-      }
-      .signupHeading {
-        h2 {
-          font-size: 40px;
-        }
-        h3 {
-          font-size: 25px;
-        }
-      }
-      .signupComponents {
-        .inputComponent {
-          input {
-            width: 30%;
-            border: 4px solid blueviolet;
-            border-radius: 70px;
-            height: 25px;
-            margin-bottom: 20px;
-            padding: 10px;
-            font-size: 20px;
-          }
-        }
-        .buttonComponent {
-          button {
-            width: 15%;
-            height: 35px;
-            border-radius: 75px;
-            font-size: 17px;
-            color: white;
-            background: blueviolet;
-            border: 4px solid dodgerblue;
-            margin-top: 11px;
-          }
-        }
+  display: flex;
+  .Signup {
+    width: 75%;
+    text-align: center;
+    .mainLogo {
+      text-align: left;
+      .mainLogoImage {
+        width: 170px;
+        margin: 20px;
       }
     }
-    .SwitchToSignup {
-        .heading{
-            font-size: 40px;
-            color: #fff;
+    .signupHeading {
+      h2 {
+        font-size: 40px;
+      }
+      h3 {
+        font-size: 25px;
+      }
+    }
+    .signupComponents {
+      .inputComponent {
+        input {
+          width: 30%;
+          border: 4px solid blueviolet;
+          border-radius: 70px;
+          height: 50px;
+          margin-top: 10px;
+          margin-bottom: 20px;
+          padding: 10px;
+          font-size: 20px;
         }
-        .paragraph{
-            color: #fff;
-            font-size: 20px;
+      }
+      .buttonComponent {
+        button {
+          width: 15%;
+          height: 35px;
+          border-radius: 75px;
+          font-size: 17px;
+          color: white;
+          background: blueviolet;
+          border: 4px solid dodgerblue;
+          margin-top: 11px;
         }
-        .buttonComponent {
-          button {
-            width: 65%;
-            height: 35px;
-            border-radius: 75px;
-            font-size: 17px;
-            color: white;
-            background: blueviolet;
-            border: 4px solid dodgerblue;
-            margin-top: 11px;
-          }
-        }
+      }
     }
   }
-  
+  .SwitchToSignup {
+    .heading {
+      color: #fff;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      h3 {
+        font-size: 55px;
+        font-weight: 700;
+      }
+    }
+    .paragraph {
+      color: #fff;
+      p {
+        font-size: 22px;
+      }
+    }
+    .buttonComponent {
+      button {
+        width: 65%;
+        height: 35px;
+        border-radius: 75px;
+        font-size: 17px;
+        color: white;
+        background: blueviolet;
+        border: 4px solid dodgerblue;
+        margin-top: 11px;
+      }
+    }
+  }
+}
