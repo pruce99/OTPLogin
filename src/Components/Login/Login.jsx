@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import mainLogo from "../../Assets/Logo.png";
 import "./Login.scss";
-import app from "./Authenticate";
-import { Link } from "react-router-dom";
+import app, { login } from "./Authenticate";
+import { Link,useNavigate } from "react-router-dom";
 import {
   getAuth,
   RecaptchaVerifier,
@@ -10,12 +10,25 @@ import {
 } from "firebase/auth";
 import ModalBox from "../ModalBox/ModalBox";
 
+
 export default function Login() {
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
   const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate()
+
+
+  const emailValidation = () => {
+    /* eslint-disable */
+    const regex =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return !(!email || regex.test(email) === false);
+  };
 
   const onSignInSubmit = (e) => {
     configureCaptcha();
@@ -25,7 +38,7 @@ export default function Login() {
       .then((confirmationResult) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
-        handleShow()
+        handleShow();
         window.confirmationResult = confirmationResult;
         console.log("otp sent");
 
@@ -53,6 +66,8 @@ export default function Login() {
     );
   };
 
+
+
   const OTPSubmit = () => {
     const code = otp;
     window.confirmationResult
@@ -60,8 +75,8 @@ export default function Login() {
       .then((result) => {
         // User signed in successfully.
         const user = result.user;
-        console.log(JSON.stringify(user))
-        alert("User is verified");
+        console.log(JSON.stringify(user));
+        navigate("/loggedin");
         // ...
       })
       .catch((error) => {
@@ -69,6 +84,28 @@ export default function Login() {
         // ...
       });
   };
+
+  const handleClick = async (props) => {
+    setLoading(true);
+    let allOkay = true;
+    if (!emailValidation()) {
+      alert("Email Invalid");
+      allOkay = false;
+    } else if (password.length < 6) {
+      alert("Password length is less than 6");
+      allOkay = false;
+      } 
+    console.log(allOkay);
+    if (allOkay === true) {
+      try {
+        await login(email, password);
+        navigate("/loggedin");
+      } catch (err) {
+        alert(err);
+      }
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="LoginComponent">
@@ -81,13 +118,13 @@ export default function Login() {
         </div>
         <div className="loginComponents">
           <div className="inputComponent">
-            <input placeholder="Email" type="text" />
+            <input onChange={(e)=>setEmail(e.target.value)} placeholder="Email" type="text" />
           </div>
           <div className="inputComponent">
-            <input placeholder="Password" type="password" />
+            <input onChange={(e)=>setPassword(e.target.value)} placeholder="Password" type="password" />
           </div>
           <div className="buttonComponent">
-            <button> Sign in</button>
+            <button disabled={loading} onClick={handleClick}> Sign in</button>
           </div>
           <div className="orLine">
             <h2 className="orLineHeading">
@@ -103,7 +140,10 @@ export default function Login() {
           </div>
           <div className="buttonComponent">
             <div id="sign-in-button"></div>
-            <button onClick={() => onSignInSubmit()}> Sign in Using OTP </button>
+            <button onClick={() => onSignInSubmit()}>
+              {" "}
+              Sign in Using OTP{" "}
+            </button>
           </div>
         </div>
       </div>
@@ -127,7 +167,7 @@ export default function Login() {
         otp={otp}
         setOtp={setOtp}
         handleClose={handleClose}
-        OTPSubmit = {OTPSubmit}
+        OTPSubmit={OTPSubmit}
       />
     </div>
   );
