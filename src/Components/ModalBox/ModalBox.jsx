@@ -4,7 +4,7 @@ import "./ModalBox.scss";
 export default function ModalBox(props) {
   return (
     <div>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal keyboard={false} backdrop="static" show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Enter OTP</Modal.Title>
         </Modal.Header>
@@ -27,8 +27,7 @@ export default function ModalBox(props) {
           <div className="buttonComponent">
             <button
               onClick={() => {
-                props.OTPSubmit()
-                props.handleClose();
+                props.OTPSubmit();
               }}
               style={{ width: "90px" }}
             >

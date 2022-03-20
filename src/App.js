@@ -1,10 +1,13 @@
-import './App.css';
-import Allroutes from './Allroutes/Allroutes';
+import "./App.css";
+import Allroutes from "./Allroutes/Allroutes";
+import LoginContextProvider from "./Contexts/LoginContext";
 
 function App() {
   return (
     <div className="App">
-      <Allroutes/>
+      <LoginContextProvider>
+        <Allroutes />
+      </LoginContextProvider>
     </div>
   );
 }

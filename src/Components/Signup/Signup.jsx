@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import mainLogo from "../../Assets/Logo.png";
 import { Link } from "react-router-dom";
 import "./Signup.scss";
-import app from "../Login/Authenticate";
-import { signup, useAuth, logout } from "../Login/Authenticate";
+import { signup, useAuth } from "../Login/Authenticate";
 import { useNavigate } from "react-router-dom";
-
+import { LoginContext } from "../../Contexts/LoginContext";
 
 export default function Signup() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const currentUser = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loginState, setLoginState] = useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const {isLoggedin,setIsloggedIn} = useContext(LoginContext)
 
   const emailValidation = () => {
     /* eslint-disable */
@@ -43,7 +39,8 @@ export default function Signup() {
     if (allOkay === true) {
       try {
         await signup(email, password);
-        navigate("/loggedin")
+        setIsloggedIn(true)
+        navigate("/loggedin");
       } catch (err) {
         alert(err);
       }
@@ -102,14 +99,6 @@ export default function Signup() {
           <Link to="/">
             <button>Sign in</button>
           </Link>
-        </div>
-        <div>
-          {/* <LoggedInModal
-            show={show}
-            handleClose={handleClose}
-            handleShow={handleShow}
-            handleLogout={handleLogout}
-          /> */}
         </div>
       </div>
     </div>

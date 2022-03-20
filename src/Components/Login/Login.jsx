@@ -1,27 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import mainLogo from "../../Assets/Logo.png";
 import "./Login.scss";
 import app, { login } from "./Authenticate";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
 import ModalBox from "../ModalBox/ModalBox";
-
+import { LoginContext } from "../../Contexts/LoginContext";
 
 export default function Login() {
-  const [email,setEmail] = useState("")
-  const [password,setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
   const [otp, setOtp] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const { isLoggedin, setIsloggedIn } = useContext(LoginContext);
 
   const emailValidation = () => {
     /* eslint-disable */
@@ -30,25 +30,41 @@ export default function Login() {
     return !(!email || regex.test(email) === false);
   };
 
-  const onSignInSubmit = (e) => {
-    configureCaptcha();
-    const appVerifier = window.recaptchaVerifier;
-    const auth = getAuth(app);
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        handleShow();
-        window.confirmationResult = confirmationResult;
-        console.log("otp sent");
+  const phoneValidation = () => {
+    const pregex = /^[0-9]{10}$/g;
+    // /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return !(!phoneNumber || pregex.test(phoneNumber) === false);
+  };
 
-        // ...
-      })
-      .catch((error) => {
-        // Error; SMS not sent
-        // ...
-        console.log("otp not sent");
-      });
+  const onSignInSubmit = (e) => {
+    let allOkay = true;
+    if (!phoneValidation()) {
+      alert("Enter valid US phone number without country code");
+      allOkay = false;
+    }
+    if (allOkay === true) {
+      
+      let phone = '+1' + phoneNumber
+      console.log(phone)
+      configureCaptcha();
+      const appVerifier = window.recaptchaVerifier;
+      const auth = getAuth(app);
+      signInWithPhoneNumber(auth, phone, appVerifier)
+        .then((confirmationResult) => {
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          handleShow();
+          window.confirmationResult = confirmationResult;
+          console.log("otp sent");
+
+          // ...
+        })
+        .catch((error) => {
+          // Error; SMS not sent
+          // ...
+          console.log("otp not sent");
+        });
+    }
   };
 
   const configureCaptcha = () => {
@@ -66,8 +82,6 @@ export default function Login() {
     );
   };
 
-
-
   const OTPSubmit = () => {
     const code = otp;
     window.confirmationResult
@@ -76,17 +90,19 @@ export default function Login() {
         // User signed in successfully.
         const user = result.user;
         console.log(JSON.stringify(user));
+        setIsloggedIn(true);
+        handleClose()
         navigate("/loggedin");
         // ...
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
+        alert(error)
       });
   };
 
   const handleClick = async (props) => {
-    setLoading(true);
     let allOkay = true;
     if (!emailValidation()) {
       alert("Email Invalid");
@@ -94,18 +110,18 @@ export default function Login() {
     } else if (password.length < 6) {
       alert("Password length is less than 6");
       allOkay = false;
-      } 
+    }
     console.log(allOkay);
     if (allOkay === true) {
       try {
         await login(email, password);
+        setIsloggedIn(true);
         navigate("/loggedin");
       } catch (err) {
         alert(err);
       }
-      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="LoginComponent">
@@ -118,13 +134,24 @@ export default function Login() {
         </div>
         <div className="loginComponents">
           <div className="inputComponent">
-            <input onChange={(e)=>setEmail(e.target.value)} placeholder="Email" type="text" />
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              type="text"
+            />
           </div>
           <div className="inputComponent">
-            <input onChange={(e)=>setPassword(e.target.value)} placeholder="Password" type="password" />
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              type="password"
+            />
           </div>
           <div className="buttonComponent">
-            <button disabled={loading} onClick={handleClick}> Sign in</button>
+            <button disabled={loading} onClick={handleClick}>
+              {" "}
+              Sign in
+            </button>
           </div>
           <div className="orLine">
             <h2 className="orLineHeading">

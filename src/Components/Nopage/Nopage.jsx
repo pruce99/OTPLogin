@@ -19,7 +19,7 @@ export default function Nopage() {
                   <p>the page you are looking for not avaible!</p>
                   <div className="buttonComponent">
                     <Link to="/">
-                      <button>Go back Home</button>
+                      <button style={{width:"20%"}}>Go back Home</button>
                     </Link>
                   </div>
                 </div>
