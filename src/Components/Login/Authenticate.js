@@ -5,7 +5,6 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
-  signInWithPhoneNumber,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
